@@ -1,32 +1,27 @@
-/* timer.c */
+/* hello_signal.c */
 #include <stdio.h>
 #include <stdlib.h>
 #include <signal.h>
 #include <unistd.h>
 
-volatile int alarms = 0;
+volatile int flag = 0;
 
-void alarmHandler(int signum)
-{
-    alarms++;
+void handler(int signum)
+{ // signal handler
     printf("Hello World!\n");
-}
-
-void interruptHandler(int signum)
-{
-    printf("\nTotal execution time: %d seconds\n", alarms);
-    exit(0);
+    flag = 1;
 }
 
 int main(int argc, char *argv[])
 {
-    signal(SIGALRM, alarmHandler);  // register handler for SIGALRM
-    signal(SIGINT, interruptHandler); // register handler for SIGINT
+    signal(SIGALRM, handler); // register handler to handle SIGALRM
 
     while (1)
     {
-        alarm(1);  // Schedule a SIGALRM for 1 second
+        alarm(1); // Schedule a SIGALRM for 1 second
         pause();   // Wait for the signal to be delivered
+        printf("Turing was right!\n");
+        flag = 0;
     }
 
     return 0; // never reached
