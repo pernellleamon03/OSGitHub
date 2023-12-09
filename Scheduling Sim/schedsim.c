@@ -120,15 +120,16 @@ void findTurnAroundTime( ProcessType plist[], int n)
   
 // Function to sort the Process acc. to priority
 int my_comparer(const void *this, const void *that)
-{ 
-  
-    /*  
-     * 1. Cast this and that into (ProcessType *)
-     * 2. return 1 if this->pri < that->pri
-     */ 
-  
-    return 1;
-} 
+{
+    // Cast this and that into (ProcessType *)
+    ProcessType *proc1 = (ProcessType *)this;
+    ProcessType *proc2 = (ProcessType *)that;
+
+    // Compare priorities
+    if (proc1->pri < proc2->pri) return -1;
+    else if (proc1->pri > proc2->pri) return 1;
+    else return 0;  // If priorities are equal
+}
 
 //Function to calculate average time 
 void findavgTimeFCFS( ProcessType plist[], int n) 
