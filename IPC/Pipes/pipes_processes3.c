@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 
     char *grep_arg = argv[1];
 
-    pid_t p1, p2;
+    pid_t p1;
 
     if (pipe(fd1) == -1)
     {
